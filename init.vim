@@ -39,6 +39,12 @@ Plug 'BurntSushi/ripgrep'
 Plug 'Yggdroot/LeaderF'  " ======================== ctrlp
 Plug 'ludovicchabant/vim-gutentags' " no need cscope anymore
 Plug 'junegunn/fzf'
+" Git
+Plug 'junegunn/gv.vim'  " 查看提交记录
+Plug 'tpope/vim-fugitive'  " git插件
+Plug 'theniceboy/vim-gitignore', { 'for': ['gitignore', 'vim-plug'] }
+Plug 'airblade/vim-gitgutter'  "vim显示文件变动
+
 call plug#end()
 
 colorscheme gruvbox
@@ -65,14 +71,19 @@ set listchars=tab:>-,trail:-
 set list
 set ruler
 
+" vim-fugitive
+set splitbelow
 let mapleader=","
-nmap <leader>tt :TagbarToggle<cr>
-nmap <leader>ee :NERDTreeToggle<cr>
+nmap <leader>t :TagbarToggle<cr>
+nmap <leader>e :NERDTreeToggle<cr>
 let g:winManagerWindowLayout='NERDTree|Tagbar'
 let g:tagbar_autofocus = 1
 let g:tagbar_usearrows = 1
+let g:tagbar_iconchars = ['+', '+']
 let NERDTreeDirArrowExpandable = "\u00a0"
 let NERDTreeDirArrowCollapsible = "\u00a0"
+"let g:NERDTreeMinimalUI = 1
+"let g:NERDTreeChDirMode = 2
 
 " === vim-easymotion
 nmap ss <Plug>(easymotion-s2)
@@ -105,6 +116,7 @@ if has("cscope")
 	nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 	nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 endif
+
 
 if has("autocmd")
 	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
