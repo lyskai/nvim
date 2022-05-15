@@ -2,21 +2,18 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'junegunn/vim-easy-align'
 Plug 'majutsushi/tagbar'
 Plug 'morhetz/gruvbox'
-" python support
-Plug 'numirias/semshi', {'do' : ':UpdateRemotePlugins'}
 " 语法检查
 Plug 'neomake/neomake'
 " 自动补全 感觉没有enable
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug 'zchee/deoplete-jedi'
 
-Plug 'easymotion/vim-easymotion' " 使用ss 查找两个字母并跳转"
+Plug 'easymotion/vim-easymotion' " 使用ss 查找两个字母并跳转
 " " 自动补全
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'wellle/tmux-complete.vim'
 " " 括号匹配
 Plug 'jiangmiao/auto-pairs'
-Plug 'davidhalter/jedi-vim'
 
 Plug 'preservim/nerdtree'
 Plug 'vim-airline/vim-airline'   "状态栏插件
@@ -25,10 +22,13 @@ Plug 'vim-airline/vim-airline-themes' "状态栏插件
 " Python
 "Plug 'tmhedberg/SimpylFold', { 'for' :['python', 'vim-plug']  }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug']  }
+"Plug 'numirias/semshi', {'do' : ':UpdateRemotePlugins'}
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug']  }
 Plug 'tweekmonster/braceless.vim'
 Plug 'vim-scripts/indentpython.vim' " python缩进脚本
+"Plug 'davidhalter/jedi-vim' "python 语法自动提示
 
+" ========================================
 Plug 'mhinz/vim-startify'  " 可以显示历史文件
 Plug 'kien/ctrlp.vim'  " 文件模糊搜索器
 
@@ -132,3 +132,4 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 "endif  
 
 let g:tagbar_ctags_bin = 'ctags'
+let g:tagbar_width = max([25, winwidth(0) / 5])
