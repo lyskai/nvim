@@ -38,7 +38,9 @@ Plug 'universal-ctags/ctags'
 Plug 'BurntSushi/ripgrep'
 Plug 'Yggdroot/LeaderF'  " ======================== ctrlp
 Plug 'ludovicchabant/vim-gutentags' " no need cscope anymore
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
+Plug 'junegunn/fzf.vim'
+
 " Git
 Plug 'junegunn/gv.vim'  " 查看提交记录
 Plug 'tpope/vim-fugitive'  " git插件
@@ -133,3 +135,14 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 let g:tagbar_ctags_bin = 'ctags'
 let g:tagbar_width = max([25, winwidth(0) / 5])
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --hidden --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+nnoremap <C-g> :Rg<Cr>
+"vim fzf search word under cursor
+nnoremap <silent><Leader>r :Rg <C-R><C-W><CR>
