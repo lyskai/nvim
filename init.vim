@@ -4,11 +4,11 @@ Plug 'majutsushi/tagbar'
 Plug 'morhetz/gruvbox'
 " 语法检查
 Plug 'neomake/neomake'
+Plug 'easymotion/vim-easymotion' " 使用ss 查找两个字母并跳转
+
 " 自动补全 感觉没有enable
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug 'zchee/deoplete-jedi'
-
-Plug 'easymotion/vim-easymotion' " 使用ss 查找两个字母并跳转
 " " 自动补全
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'wellle/tmux-complete.vim'
@@ -146,3 +146,10 @@ command! -bang -nargs=* Rg
 nnoremap <C-g> :Rg<Cr>
 "vim fzf search word under cursor
 nnoremap <silent><Leader>r :Rg <C-R><C-W><CR>
+
+" Use tab for completion
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
