@@ -145,7 +145,7 @@ command! -bang -nargs=* Rg
 
 nnoremap <C-g> :Rg<Cr>
 "vim fzf search word under cursor
-nnoremap <silent><Leader>r :Rg <C-R><C-W><CR>
+nnoremap <silent><Leader>s :Rg <C-R><C-W><CR>
 
 " Use tab for completion
 inoremap <silent><expr> <TAB>
