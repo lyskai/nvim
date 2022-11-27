@@ -73,6 +73,9 @@ set listchars=tab:>-,trail:-
 set list
 set ruler
 
+"Add spell check
+setlocal spell
+
 " vim-fugitive
 set splitbelow
 let mapleader=","
