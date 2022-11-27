@@ -22,8 +22,7 @@ Plug 'vim-airline/vim-airline-themes' "状态栏插件
 " Python
 "Plug 'tmhedberg/SimpylFold', { 'for' :['python', 'vim-plug']  }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug']  }
-"Plug 'numirias/semshi', {'do' : ':UpdateRemotePlugins'}
-Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug']  }
+Plug 'numirias/semshi', {'do' : ':UpdateRemotePlugins'}
 Plug 'tweekmonster/braceless.vim'
 Plug 'vim-scripts/indentpython.vim' " python缩进脚本
 "Plug 'davidhalter/jedi-vim' "python 语法自动提示
