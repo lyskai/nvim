@@ -36,7 +36,7 @@ Plug 'universal-ctags/ctags'
 "https://zhuanlan.zhihu.com/p/102033129
 Plug 'BurntSushi/ripgrep'
 Plug 'Yggdroot/LeaderF'  " ======================== ctrlp
-Plug 'ludovicchabant/vim-gutentags' " no need cscope anymore
+Plug 'ludovicchabant/vim-gutentags' " no need cscope anymore  => Auto Generate tags
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
 Plug 'junegunn/fzf.vim'
 
@@ -92,36 +92,6 @@ let NERDTreeDirArrowCollapsible = "\u00a0"
 " === vim-easymotion
 nmap ss <Plug>(easymotion-s2)
 
-function! LoadCscope()
-    let db = findfile("cscope.out", ".;")
-    if (!empty(db))
-	let path = strpart(db, 0, match(db, "/cscope.out$"))
-	set nocscopeverbose " suppress 'duplicate connection' error
-	"print db
-	exe "cs add " . db . " " . path
-	set cscopeverbose
-    endif
-endfunction
-au BufEnter *  call LoadCscope()
-
-if has("cscope")
-	set cscopetag
-	set csto=0
-	"if filereadable("cscope.out")
-	"	cs add cscope.out
-	"endif
-	"set csverb
-	nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-	nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-	nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-	nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-endif
-
-
 if has("autocmd")
 	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
 		\| exe "normal! g'\"" | endif
@@ -134,6 +104,28 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 "	set t_ti=^[[?1049h
 "	set t_te=^[[?1049l
 "endif  
+
+"set tags=tags;
+"set autochdir
+" gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归 "
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.project']
+" 所生成的数据文件的名称 "
+let g:gutentags_ctags_tagfile = '.tags'
+
+" 将自动生成的 tags 文件全部放入 .cache/tags 目录中，避免污染工程目录 "
+let s:vim_tags = expand('/local/mnt/workspace/kaliu/local/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+"检测 ~/.cache/tags 不存在就新建 "
+if !isdirectory(s:vim_tags)
+    silent! call mkdir(s:vim_tags, 'p')
+endif
+
+" 配置 ctags 的参数 "
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+"let g:gutentags_trace = 1
 
 let g:tagbar_ctags_bin = 'ctags'
 let g:tagbar_width = max([25, winwidth(0) / 5])
